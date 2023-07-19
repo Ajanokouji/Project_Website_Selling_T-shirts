@@ -24,19 +24,19 @@ namespace AppApi.Controllers
         }
 
         [HttpPost("Create")]
-        public bool Create(Guid idctsp, int soluong)
+        public bool Create(int soluong)
         {
             GioHangChiTiet ghct = new GioHangChiTiet();
-            ghct.IdCTSP = idctsp;
+            ghct.IdCTSP = Guid.NewGuid();
             ghct.SoLuong = soluong;
             return _Irepos.CreateItem(ghct);
         }
 
         [HttpPut("Update")]
-        public bool Update(Guid Id, Guid idctsp, int soluong)
+        public bool Update(Guid Id, int soluong)
         {
             GioHangChiTiet ghct = _Irepos.GetAllItem().First(p => p.Id == Id);
-            ghct.IdCTSP = idctsp;
+            ghct.IdCTSP = Guid.NewGuid();
             ghct.SoLuong = soluong;
             return _Irepos.UpdateItem(ghct);
         }

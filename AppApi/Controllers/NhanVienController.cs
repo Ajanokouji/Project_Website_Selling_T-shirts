@@ -23,11 +23,11 @@ namespace AppApi.Controllers
         }
 
         [HttpPost("Create")]
-        public bool Create(Guid idcv, string ten, string tentk, string matkhau,
+        public bool Create(string ten, string tentk, string matkhau,
             string anh, string email, int trangthai)
         {
             NhanVien nhanvien = new NhanVien();
-            nhanvien.IdCV = idcv;
+            nhanvien.IdCV = Guid.NewGuid();
             nhanvien.Ten = ten;
             nhanvien.TenTaiKhoan= tentk;
             nhanvien.MatKhau = matkhau;
@@ -38,11 +38,11 @@ namespace AppApi.Controllers
         }
 
         [HttpPut("Edit")]
-        public bool Update(Guid id, Guid idcv, string ten, string tentk, string matkhau,
+        public bool Update(Guid id, string ten, string tentk, string matkhau,
             string anh, string email, int trangthai)
         {
             NhanVien nhanvien = irepos.GetAllItem().First(p => p.Id == id);
-            nhanvien.IdCV = idcv;
+            nhanvien.IdCV = Guid.NewGuid();
             nhanvien.Ten = ten;
             nhanvien.TenTaiKhoan = tentk;
             nhanvien.MatKhau = matkhau;
