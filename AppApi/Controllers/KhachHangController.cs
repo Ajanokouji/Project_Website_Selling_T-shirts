@@ -34,52 +34,92 @@ namespace AppApi.Controllers
         }
 
 
-        [HttpPost("add")]
-        public bool Add(KhachHang item)
+        [HttpPost]
+        public IActionResult CreateKhachHang(
+            string Ma,
+            string Ten,
+            string TenTaiKhoan,
+            string MatKhau,
+            string SDT,
+            DateTime NgaySinh,
+            string DiaChi,
+            int GioiTinh,
+            string GhiChu,
+            int TrangThai
+            )
         {
             var kh = new KhachHang
             {
                 Id = Guid.NewGuid(),
-                Ma = item.Ma,
-                Ten = item.Ten,
-                TenTaiKhoan = item.TenTaiKhoan,
-                MatKhau = item.MatKhau,
-                SDT = item.SDT,
-                NgaySinh = item.NgaySinh,
-                DiaChi = item.DiaChi,
-                GioiTinh = item.GioiTinh,
-                GhiChu = item.GhiChu,
-                TrangThai = item.TrangThai
+                Ma = Ma,
+                Ten = Ten,
+                TenTaiKhoan = TenTaiKhoan,
+                MatKhau = MatKhau,
+                SDT = SDT,
+                NgaySinh = NgaySinh,
+                DiaChi = DiaChi,
+                GioiTinh = GioiTinh,
+                GhiChu = GhiChu,
+                TrangThai = TrangThai
             };
-            return _repo.CreateItem(kh);
+            try
+            {
+                return Ok( _repo.CreateItem(kh));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
 
 
-        [HttpPut("update")]
-        public bool Update(KhachHang item)
-        {
-            var kh = _repo.GetKHByID(item.Id);
-            if (kh == null)
-                return false;
-
-            kh.Ma = item.Ma;
-            kh.Ten = item.Ten;
-            kh.TenTaiKhoan = item.TenTaiKhoan;
-            kh.MatKhau = item.MatKhau;
-            kh.SDT = item.SDT;
-            kh.NgaySinh = item.NgaySinh;
-            kh.DiaChi = item.DiaChi;
-            kh.GioiTinh = item.GioiTinh;
-            kh.GhiChu = item.GhiChu;
-            kh.TrangThai = item.TrangThai;
-            return _repo.UpdateItem(kh);
-        }
-
-        [HttpDelete("delete")]
-        public bool Delete(Guid id)
+        [HttpPut("{id}")]
+        public IActionResult UpdateKhachHang(
+            Guid id,
+            string Ma,
+            string Ten,
+            string TenTaiKhoan,
+            string MatKhau,
+            string SDT,
+            DateTime NgaySinh,
+            string DiaChi,
+            int GioiTinh,
+            string GhiChu,
+            int TrangThai
+            )
         {
             var kh = _repo.GetKHByID(id);
-            return _repo.DeleteItem(kh);
+            if (kh == null)
+                return NotFound();
+
+            kh.Ma = Ma;
+            kh.Ten = Ten;
+            kh.TenTaiKhoan = TenTaiKhoan;
+            kh.MatKhau = MatKhau;
+            kh.SDT = SDT;
+            kh.NgaySinh = NgaySinh;
+            kh.DiaChi = DiaChi;
+            kh.GioiTinh = GioiTinh;
+            kh.GhiChu = GhiChu;
+            kh.TrangThai = TrangThai;
+            return Ok(_repo.UpdateItem(kh));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult Delete(Guid id)
+        {
+            var kh = _repo.GetKHByID(id);
+            if (kh == null)
+                return NotFound();
+            try
+            {
+                return Ok(_repo.DeleteItem(kh));
+            }
+            catch 
+            {
+                return BadRequest(); 
+            }
+          
         }
     }
 }

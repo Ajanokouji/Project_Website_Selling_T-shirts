@@ -26,41 +26,70 @@ namespace AppApi.Controllers
             return hdcts;
         }
 
-        [HttpPost("add")]
-        public bool Add(HoaDonChiTiet item)
+        [HttpPost]
+        public IActionResult CreateHDCT(
+            Guid IdHD,
+            Guid IdCTSP,
+            Guid IdGiamGia,
+            int SoLuong,
+            decimal DonGia
+            )
         {
             var hdct = new HoaDonChiTiet
             {
-                IdHD = item.IdHD,
-                IdCTSP = item.IdCTSP,
-                IdGiamGia = item.IdGiamGia,
-                SoLuong = item.SoLuong,
-                DonGia = item.DonGia
+                IdHD = IdHD,
+                IdCTSP = IdCTSP,
+                IdGiamGia = IdGiamGia,
+                SoLuong = SoLuong,
+                DonGia = DonGia
             };
-            return _repo.CreateItem(hdct);
+            try
+            { 
+                return Ok(_repo.CreateItem(hdct));
+            }
+            catch 
+            {
+                return BadRequest();
+            }
         }
 
 
-        [HttpPut("update")]
-        public bool Update(HoaDonChiTiet item)
-        {
-            var hdct = _repo.GetAllItem().FirstOrDefault(c => c.IdHD == item.IdHD);
-            if (hdct == null)
-                return false;
-
-            hdct.IdHD = item.IdHD;
-            hdct.IdCTSP = item.IdCTSP;
-            hdct.IdGiamGia = item.IdGiamGia;
-            hdct.SoLuong = item.SoLuong;
-            hdct.DonGia = item.DonGia;
-            return _repo.UpdateItem(hdct);
-        }
-
-        [HttpDelete("delete")]
-        public bool Delete(Guid id)
+        [HttpPut("{id}")]
+        public IActionResult UpdateHDCT(
+            Guid id,
+            Guid IdHD,
+            Guid IdCTSP,
+            Guid IdGiamGia,
+            int SoLuong,
+            decimal DonGia
+            )
         {
             var hdct = _repo.GetAllItem().FirstOrDefault(c => c.IdHD == id);
-            return _repo.DeleteItem(hdct);
+            if (hdct == null)
+                return NotFound();
+
+            hdct.IdHD = IdHD;
+            hdct.IdCTSP = IdCTSP;
+            hdct.IdGiamGia = IdGiamGia;
+            hdct.SoLuong = SoLuong;
+            hdct.DonGia = DonGia;
+            return Ok(_repo.UpdateItem(hdct));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteHDCT(Guid id)
+        {
+            var hdct = _repo.GetAllItem().FirstOrDefault(c => c.IdHD == id);
+            if (hdct == null)
+                return NotFound();
+            try
+            {
+                return Ok(_repo.DeleteItem(hdct));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }

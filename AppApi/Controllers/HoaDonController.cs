@@ -33,62 +33,112 @@ namespace AppApi.Controllers
         }
 
 
-        [HttpPost("add")]
-        public bool AddHoaDon(HoaDon item)
+        [HttpPost]
+        public IActionResult CreateHoaDon(
+            Guid IdKH,
+            Guid IdNV,
+            string Ma,
+            string TenNV,
+            string TenKH,
+            DateTime NgayTao,
+            DateTime NgayNhan,
+            DateTime NgayShip,
+            DateTime NgayThanhToan,
+            string DiaChi,
+            decimal TongTien,
+            int TrangThai,
+            string SDTNguoiNhan,
+            string SDTNguoiShip,
+            decimal TienShip
+            )
         {
             var hoadon = new HoaDon
             {
                 Id = Guid.NewGuid(),
-                IdKH = item.IdKH,
-                IdNV = item.IdNV,
-                Ma = item.Ma,
-                TenNV = item.TenNV,
-                TenKH = item.TenKH,
-                NgayTao = item.NgayTao,
-                NgayNhan = item.NgayNhan,
-                NgayShip = item.NgayShip,
-                NgayThanhToan = item.NgayThanhToan,
-                DiaChi = item.DiaChi,
-                TongTien = item.TongTien,
-                TrangThai = item.TrangThai,
-                SDTNguoiNhan = item.SDTNguoiNhan,
-                SDTNguoiShip = item.SDTNguoiShip,
-                TienShip = item.TienShip
+                IdKH = IdKH,
+                IdNV = IdNV,
+                Ma = Ma,
+                TenNV = TenNV,
+                TenKH = TenKH,
+                NgayTao = NgayTao,
+                NgayNhan = NgayNhan,
+                NgayShip = NgayShip,
+                NgayThanhToan = NgayThanhToan,
+                DiaChi = DiaChi,
+                TongTien = TongTien,
+                TrangThai = TrangThai,
+                SDTNguoiNhan = SDTNguoiNhan,
+                SDTNguoiShip = SDTNguoiShip,
+                TienShip = TienShip
             };
-            return _repo.CreateItem(hoadon);
+            try
+            {
+                return Ok(_repo.CreateItem(hoadon));
+            }
+            catch
+            {
+                return BadRequest();
+            }
+          
         }
 
 
-        [HttpPut("update")]
-        public bool UpdateHoaDon(HoaDon item)
-        {
-            var hoadon = _repo.GetHDByID(item.Id);
-            if(hoadon == null )
-                return false;
-
-            hoadon.IdKH = item.IdKH;
-            hoadon.IdNV = item.IdNV;
-            hoadon.Ma = item.Ma;
-            hoadon.TenNV = item.TenNV;
-            hoadon.TenKH = item.TenKH;
-            hoadon.NgayTao = item.NgayTao;
-            hoadon.NgayNhan = item.NgayNhan;
-            hoadon.NgayShip = item.NgayShip;
-            hoadon.NgayThanhToan = item.NgayThanhToan;
-            hoadon.DiaChi = item.DiaChi;
-            hoadon.TongTien = item.TongTien;
-            hoadon.TrangThai = item.TrangThai;
-            hoadon.SDTNguoiNhan = item.SDTNguoiNhan;
-            hoadon.SDTNguoiShip = item.SDTNguoiShip;
-            hoadon.TienShip = item.TienShip;
-            return _repo.UpdateItem(hoadon);
-        }
-
-        [HttpDelete("delete")]
-        public bool DeleteKichCo(Guid id)
+        [HttpPut("{id}")]
+        public IActionResult UpdateHoaDon(
+            Guid id,
+            Guid IdKH,
+            Guid IdNV,
+            string Ma,
+            string TenNV,
+            string TenKH,
+            DateTime NgayTao,
+            DateTime NgayNhan,
+            DateTime NgayShip,
+            DateTime NgayThanhToan,
+            string DiaChi,
+            decimal TongTien,
+            int TrangThai,
+            string SDTNguoiNhan,
+            string SDTNguoiShip,
+            decimal TienShip
+            )
         {
             var hoadon = _repo.GetHDByID(id);
-            return _repo.DeleteItem(hoadon);
+            if(hoadon == null )
+                return NotFound();
+
+            hoadon.IdKH = IdKH;
+            hoadon.IdNV = IdNV;
+            hoadon.Ma = Ma;
+            hoadon.TenNV = TenNV;
+            hoadon.TenKH = TenKH;
+            hoadon.NgayTao = NgayTao;
+            hoadon.NgayNhan = NgayNhan;
+            hoadon.NgayShip = NgayShip;
+            hoadon.NgayThanhToan = NgayThanhToan;
+            hoadon.DiaChi = DiaChi;
+            hoadon.TongTien = TongTien;
+            hoadon.TrangThai = TrangThai;
+            hoadon.SDTNguoiNhan = SDTNguoiNhan;
+            hoadon.SDTNguoiShip = SDTNguoiShip;
+            hoadon.TienShip = TienShip;
+            return Ok(_repo.UpdateItem(hoadon));
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteKichCo(Guid id)
+        {
+            var hoadon = _repo.GetHDByID(id);
+            if (hoadon == null)
+                return NotFound();
+            try
+            {
+                return Ok(_repo.DeleteItem(hoadon));
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
     }
 }
