@@ -34,6 +34,7 @@ namespace AppApi.Controllers
             decimal GiaNhap,
             decimal GiaBan,
             string MoTa,
+            int SoLuongTon,
             int TrangThai)
         {
 
@@ -47,6 +48,7 @@ namespace AppApi.Controllers
             result.IdCL = IdCL;
             result.GiaNhap = GiaNhap;
             result.GiaBan = GiaBan;
+            result.SoLuongTon = SoLuongTon;
             result.Mota = MoTa;
             result.TrangThai = TrangThai;       
             // check name trung nhau
@@ -61,6 +63,7 @@ namespace AppApi.Controllers
             Guid IdCL,
             decimal GiaNhap,
             decimal GiaBan,
+            int SoLuongTon,
             string MoTa,
             int TrangThai)
         {
@@ -74,6 +77,7 @@ namespace AppApi.Controllers
             result.IdCL = IdCL;
             result.GiaNhap = GiaNhap;
             result.GiaBan = GiaBan;
+            result.SoLuongTon = SoLuongTon;
             result.Mota = MoTa;
             result.TrangThai = TrangThai;
             return _Iallrepos.UpdateItem(result);
@@ -84,6 +88,11 @@ namespace AppApi.Controllers
         {
             ChiTietSanPham result = _Iallrepos.GetAllItem().First(p => p.Id == id);
             return _Iallrepos.DeleteItem(result);
+        }
+        [HttpGet("GetbyId-CTSanPham")]
+        public ChiTietSanPham GetbyId(Guid Id)
+        {
+            return _Iallrepos.GetById(Id);
         }
     }
 }

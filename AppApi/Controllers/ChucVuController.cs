@@ -57,5 +57,10 @@ namespace AppApi.Controllers
             ChucVu result = _Iallrepos.GetAllItem().First(p => p.Id == id);
             return _Iallrepos.DeleteItem(result);
         }
+        [HttpGet("GetbyId-ChucVu")]
+        public ChucVu GetbyIdCV(Guid Id)
+        {
+            return _Iallrepos.GetById(Id);
+        }
     }
 }
