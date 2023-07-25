@@ -11,7 +11,7 @@ namespace AppApi.Controllers
 	public class MauSacController : ControllerBase
 	{
 		IAllrepositories<MauSac> _iAllReposMS;
-		private ShopDbContext _shopDbContext = new ShopDbContext();
+		ShopDbContext _shopDbContext = new ShopDbContext();
 		public MauSacController()
 		{
 			Allrepositories<MauSac> repos = new Allrepositories<MauSac>(_shopDbContext, _shopDbContext.mauSacs);
@@ -25,11 +25,21 @@ namespace AppApi.Controllers
 			return _iAllReposMS.GetAllItem();
 		}
 
+		[HttpGet("get-mausac-by-id")]
+		public MauSac GetMSById(Guid id)
+		{
+			return _iAllReposMS.GetById(id);
+
+		}
 
 		[HttpPost("create-mausac")]
 		public bool CreateMauSac(string tenMauSac, int trangThai)
 		{
-			MauSac ms = new MauSac();
+			if (string.IsNullOrEmpty(tenMauSac))
+			{
+				return false;
+			}
+			var ms = new MauSac();
 			ms.Id = Guid.NewGuid();
 			ms.TenMauSac = tenMauSac;
 			ms.TrangThai = trangThai;
@@ -40,12 +50,12 @@ namespace AppApi.Controllers
 		[HttpPut("update-mausac")]
 		public bool UpdateMauSac(Guid id, string tenMauSac, int trangThai)
 		{
-			MauSac ms = _iAllReposMS.GetAllItem().First(c => c.Id == id);
+            MauSac ms = _iAllReposMS.GetAllItem().First(p => p.Id == id);
 			ms.Id = id;
 			ms.TenMauSac = tenMauSac;
 			ms.TrangThai = trangThai;
 			return _iAllReposMS.UpdateItem(ms);
-		}
+        }
 
 		[HttpDelete]
 		public bool DeleteMauSac(Guid id)
