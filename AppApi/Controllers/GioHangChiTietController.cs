@@ -23,20 +23,28 @@ namespace AppApi.Controllers
             return _Irepos.GetAllItem();
         }
 
+        [HttpGet("GetGHCTById")]
+        public GioHangChiTiet GetGHCTById(Guid id)
+        {
+            return _Irepos.GetById(id);
+        }
+
         [HttpPost("Create")]
-        public bool Create(int soluong)
+        public bool Create(Guid idctsp, int soluong)
         {
             GioHangChiTiet ghct = new GioHangChiTiet();
-            ghct.IdCTSP = Guid.NewGuid();
+            ghct.Id = Guid.NewGuid();
+            ghct.IdCTSP = idctsp;
             ghct.SoLuong = soluong;
             return _Irepos.CreateItem(ghct);
         }
 
         [HttpPut("Update")]
-        public bool Update(Guid Id, int soluong)
+        public bool Update(Guid id, Guid idctsp, int soluong)
         {
-            GioHangChiTiet ghct = _Irepos.GetAllItem().First(p => p.Id == Id);
-            ghct.IdCTSP = Guid.NewGuid();
+            GioHangChiTiet ghct = _Irepos.GetAllItem().First(p => p.Id == id);
+            ghct.Id = id;
+            ghct.IdCTSP = idctsp;
             ghct.SoLuong = soluong;
             return _Irepos.UpdateItem(ghct);
         }
