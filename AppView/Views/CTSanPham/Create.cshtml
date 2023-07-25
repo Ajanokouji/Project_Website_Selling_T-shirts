@@ -1,0 +1,88 @@
+﻿@model AppData.Data.ChiTietSanPham
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>ChiTietSanPham</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            @*<div class="form-group">
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
+            </div>*@
+            <div class="form-group">
+                <label asp-for="IdSP" class="control-label"></label>
+                <input asp-for="IdSP" class="form-control" />
+                <span asp-validation-for="IdSP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdAnh" class="control-label"></label>
+                <input asp-for="IdAnh" class="form-control" />
+                <span asp-validation-for="IdAnh" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdKC" class="control-label"></label>
+                <input asp-for="IdKC" class="form-control" />
+                <span asp-validation-for="IdKC" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdMS" class="control-label"></label>
+                <input asp-for="IdMS" class="form-control" />
+                <span asp-validation-for="IdMS" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdLoai" class="control-label"></label>
+                <input asp-for="IdLoai" class="form-control" />
+                <span asp-validation-for="IdLoai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdCL" class="control-label"></label>
+                <input asp-for="IdCL" class="form-control" />
+                <span asp-validation-for="IdCL" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiaNhap" class="control-label"></label>
+                <input asp-for="GiaNhap" class="form-control" />
+                <span asp-validation-for="GiaNhap" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GiaBan" class="control-label"></label>
+                <input asp-for="GiaBan" class="form-control" />
+                <span asp-validation-for="GiaBan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuongTon" class="control-label"></label>
+                <input asp-for="SoLuongTon" class="form-control" />
+                <span asp-validation-for="SoLuongTon" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Mota" class="control-label"></label>
+                <input asp-for="Mota" class="form-control" />
+                <span asp-validation-for="Mota" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrangThai" class="control-label"></label>
+                <input asp-for="TrangThai" class="form-control" />
+                <span asp-validation-for="TrangThai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

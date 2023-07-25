@@ -57,6 +57,10 @@ namespace AppApi.Controllers
             ChatLieu result = _Iallrepos.GetAllItem().First(p => p.Id == id);
             return _Iallrepos.DeleteItem(result);
         }
-
+        [HttpGet("GetbyId-ChatLieu")]
+        public ChatLieu GetbyId(Guid Id)
+        {
+            return _Iallrepos.GetById(Id);
+        }
     }
 }
