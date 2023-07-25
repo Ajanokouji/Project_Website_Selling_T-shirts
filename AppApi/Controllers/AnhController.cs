@@ -22,10 +22,17 @@ namespace AppApi.Controllers
             return irepos.GetAllItem();
         }
 
+        [HttpGet("GetAnhById")]
+        public Anh GetAnhById(Guid id)
+        {
+            return irepos.GetById(id);
+        }
+
         [HttpPost("Create")]
         public bool Create(string duongdan, int trangthai)
         {
             Anh anh = new Anh();
+            anh.Id = Guid.NewGuid();
             anh.DuongDan= duongdan;
             anh.TrangThai = trangthai;
             return irepos.CreateItem(anh);
@@ -35,6 +42,7 @@ namespace AppApi.Controllers
         public bool Update(Guid id, string duongdan, int trangthai)
         {
             Anh anh = irepos.GetAllItem().First(p => p.Id == id);
+            anh.Id = id;
             anh.DuongDan = duongdan;
             anh.TrangThai = trangthai;
             return irepos.UpdateItem(anh);

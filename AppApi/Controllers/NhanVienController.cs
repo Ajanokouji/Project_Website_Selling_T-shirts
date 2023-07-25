@@ -2,6 +2,7 @@
 using AppData.Data;
 using AppData.IAllrepository;
 using AppData.AllRepository;
+using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 
 namespace AppApi.Controllers
 {
@@ -22,12 +23,19 @@ namespace AppApi.Controllers
             return irepos.GetAllItem();
         }
 
+        [HttpGet("GetNVById")]
+        public NhanVien GetNVById(Guid id)
+        {
+            return irepos.GetById(id);
+        }
+
         [HttpPost("Create")]
-        public bool Create(string ten, string tentk, string matkhau,
+        public bool Create(Guid idcv, string ten, string tentk, string matkhau,
             string anh, string email, int trangthai)
         {
             NhanVien nhanvien = new NhanVien();
-            nhanvien.IdCV = Guid.NewGuid();
+            nhanvien.Id = Guid.NewGuid();
+            nhanvien.IdCV = idcv;
             nhanvien.Ten = ten;
             nhanvien.TenTaiKhoan= tentk;
             nhanvien.MatKhau = matkhau;
@@ -38,11 +46,12 @@ namespace AppApi.Controllers
         }
 
         [HttpPut("Edit")]
-        public bool Update(Guid id, string ten, string tentk, string matkhau,
+        public bool Update(Guid id, Guid idcv, string ten, string tentk, string matkhau,
             string anh, string email, int trangthai)
         {
             NhanVien nhanvien = irepos.GetAllItem().First(p => p.Id == id);
-            nhanvien.IdCV = Guid.NewGuid();
+            nhanvien.Id = id;
+            nhanvien.IdCV = idcv;
             nhanvien.Ten = ten;
             nhanvien.TenTaiKhoan = tentk;
             nhanvien.MatKhau = matkhau;
