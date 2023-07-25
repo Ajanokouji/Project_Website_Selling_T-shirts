@@ -25,8 +25,14 @@ namespace AppApi.Controllers
 			return _iAllReposKC.GetAllItem();
 		}
 
+        [HttpGet("get-kichco-by-id")]
+        public KichCo GetKCById(Guid id)
+        {
+			return _iAllReposKC.GetById(id);
 
-		[HttpPost("create-kichco")]
+        }
+
+        [HttpPost("create-kichco")]
 		public bool CreateKichCo(string size, int trangThai)
 		{
 			KichCo kc = new KichCo();

@@ -25,8 +25,14 @@ namespace AppApi.Controllers
 			return _iAllReposLoai.GetAllItem();
 		}
 
+        [HttpGet("get-loai-by-id")]
+        public Loai GetLoaiById(Guid id)
+        {
+			return _iAllReposLoai.GetById(id);
 
-		[HttpPost("create-loai")]
+        }
+
+        [HttpPost("create-loai")]
 		public bool CreateLoai(string tenLoai, int trangThai)
 		{
 			Loai loai = new Loai();
