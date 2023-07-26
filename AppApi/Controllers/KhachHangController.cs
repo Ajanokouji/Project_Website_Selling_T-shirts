@@ -34,44 +34,67 @@ namespace AppApi.Controllers
         }
 
 
-        [HttpPost("add")]
-        public bool Add(KhachHang item)
+        [HttpPost("create")]
+        public bool CreateKhachHang(
+            string Ma,
+            string Ten,
+            string TenTaiKhoan,
+            string MatKhau,
+            string SDT,
+            DateTime NgaySinh,
+            string DiaChi,
+            int GioiTinh,
+            string GhiChu,
+            int TrangThai
+            )
         {
             var kh = new KhachHang
             {
                 Id = Guid.NewGuid(),
-                Ma = item.Ma,
-                Ten = item.Ten,
-                TenTaiKhoan = item.TenTaiKhoan,
-                MatKhau = item.MatKhau,
-                SDT = item.SDT,
-                NgaySinh = item.NgaySinh,
-                DiaChi = item.DiaChi,
-                GioiTinh = item.GioiTinh,
-                GhiChu = item.GhiChu,
-                TrangThai = item.TrangThai
+                Ma = Ma,
+                Ten = Ten,
+                TenTaiKhoan = TenTaiKhoan,
+                MatKhau = MatKhau,
+                SDT = SDT,
+                NgaySinh = NgaySinh,
+                DiaChi = DiaChi,
+                GioiTinh = GioiTinh,
+                GhiChu = GhiChu,
+                TrangThai = TrangThai
             };
             return _repo.CreateItem(kh);
         }
 
 
-        [HttpPut("update")]
-        public bool Update(KhachHang item)
+        [HttpPut("edit")]
+        public bool UpdateKhachHang(
+            Guid id,
+            string Ma,
+            string Ten,
+            string TenTaiKhoan,
+            string MatKhau,
+            string SDT,
+            DateTime NgaySinh,
+            string DiaChi,
+            int GioiTinh,
+            string GhiChu,
+            int TrangThai
+            )
         {
-            var kh = _repo.GetKHByID(item.Id);
+            var kh = _repo.GetKHByID(id);
             if (kh == null)
                 return false;
 
-            kh.Ma = item.Ma;
-            kh.Ten = item.Ten;
-            kh.TenTaiKhoan = item.TenTaiKhoan;
-            kh.MatKhau = item.MatKhau;
-            kh.SDT = item.SDT;
-            kh.NgaySinh = item.NgaySinh;
-            kh.DiaChi = item.DiaChi;
-            kh.GioiTinh = item.GioiTinh;
-            kh.GhiChu = item.GhiChu;
-            kh.TrangThai = item.TrangThai;
+            kh.Ma = Ma;
+            kh.Ten = Ten;
+            kh.TenTaiKhoan = TenTaiKhoan;
+            kh.MatKhau = MatKhau;
+            kh.SDT = SDT;
+            kh.NgaySinh = NgaySinh;
+            kh.DiaChi = DiaChi;
+            kh.GioiTinh = GioiTinh;
+            kh.GhiChu = GhiChu;
+            kh.TrangThai = TrangThai;
             return _repo.UpdateItem(kh);
         }
 
@@ -79,7 +102,11 @@ namespace AppApi.Controllers
         public bool Delete(Guid id)
         {
             var kh = _repo.GetKHByID(id);
+            if (kh == null)
+                return false;
             return _repo.DeleteItem(kh);
+
+
         }
     }
 }

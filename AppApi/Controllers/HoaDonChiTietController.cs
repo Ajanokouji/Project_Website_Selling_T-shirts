@@ -26,40 +26,55 @@ namespace AppApi.Controllers
             return hdcts;
         }
 
-        [HttpPost("add")]
-        public bool Add(HoaDonChiTiet item)
+        [HttpPost("create")]
+        public bool CreateHDCT(
+            Guid IdHD,
+            Guid IdCTSP,
+            Guid IdGiamGia,
+            int SoLuong,
+            decimal DonGia
+            )
         {
             var hdct = new HoaDonChiTiet
             {
-                IdHD = item.IdHD,
-                IdCTSP = item.IdCTSP,
-                IdGiamGia = item.IdGiamGia,
-                SoLuong = item.SoLuong,
-                DonGia = item.DonGia
+                IdHD = IdHD,
+                IdCTSP = IdCTSP,
+                IdGiamGia = IdGiamGia,
+                SoLuong = SoLuong,
+                DonGia = DonGia
             };
             return _repo.CreateItem(hdct);
         }
 
 
-        [HttpPut("update")]
-        public bool Update(HoaDonChiTiet item)
+        [HttpPut("edit")]
+        public bool UpdateHDCT(
+            Guid id,
+            Guid IdHD,
+            Guid IdCTSP,
+            Guid IdGiamGia,
+            int SoLuong,
+            decimal DonGia
+            )
         {
-            var hdct = _repo.GetAllItem().FirstOrDefault(c => c.IdHD == item.IdHD);
+            var hdct = _repo.GetAllItem().FirstOrDefault(c => c.IdHD == id);
             if (hdct == null)
                 return false;
 
-            hdct.IdHD = item.IdHD;
-            hdct.IdCTSP = item.IdCTSP;
-            hdct.IdGiamGia = item.IdGiamGia;
-            hdct.SoLuong = item.SoLuong;
-            hdct.DonGia = item.DonGia;
+            hdct.IdHD = IdHD;
+            hdct.IdCTSP = IdCTSP;
+            hdct.IdGiamGia = IdGiamGia;
+            hdct.SoLuong = SoLuong;
+            hdct.DonGia = DonGia;
             return _repo.UpdateItem(hdct);
         }
 
         [HttpDelete("delete")]
-        public bool Delete(Guid id)
+        public bool DeleteHDCT(Guid id)
         {
             var hdct = _repo.GetAllItem().FirstOrDefault(c => c.IdHD == id);
+            if (hdct == null)
+                return false;
             return _repo.DeleteItem(hdct);
         }
     }
