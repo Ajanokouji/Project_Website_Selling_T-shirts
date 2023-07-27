@@ -1,0 +1,128 @@
+﻿@model IEnumerable<AppData.Data.HoaDon>
+
+@{
+    ViewData["Title"] = "Quản lý hóa đơn";
+}
+
+<h1> Quản lý hóa đơn </h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdKH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdNV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Ma)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenNV)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenKH)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayTao)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayShip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgayThanhToan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DiaChi)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TongTien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SDTNguoiNhan)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SDTNguoiShip)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TienShip)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Id)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdKH)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdNV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ma)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenNV)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenKH)
+                </td>      
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayTao)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayShip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NgayThanhToan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DiaChi)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TongTien)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDTNguoiNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SDTNguoiShip)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TienShip)
+                </td>
+               
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+}

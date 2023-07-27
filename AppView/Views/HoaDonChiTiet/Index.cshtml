@@ -1,0 +1,62 @@
+﻿@model IEnumerable<AppData.Data.HoaDonChiTiet>
+
+@{
+    ViewData["Title"] = "Hóa đơn chi tiết";
+}
+
+<h1> Hóa đơn chi tiét </h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.IdHD)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdCTSP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IdGiamGia)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.DonGia)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdHD)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdCTSP)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.IdGiamGia)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.SoLuong)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DonGia)
+                </td>
+
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new {  id=item.IdHD  }) |
+                    @Html.ActionLink("Delete", "Delete", new {  id=item.IdHD  })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@{
+}

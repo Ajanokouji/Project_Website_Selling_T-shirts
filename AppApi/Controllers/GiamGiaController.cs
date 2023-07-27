@@ -3,6 +3,7 @@ using AppData.Data;
 using AppData.IAllrepository;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AppApi.Controllers
 {
@@ -26,45 +27,63 @@ namespace AppApi.Controllers
             return respone;
         }
 
-        [HttpPost("add")]
-        public bool Add(GiamGia item)
+        [HttpPost("create")]
+        public bool CreateGiamGia(
+              string Ma,
+              string Ten,
+              DateTime NgayBatDau,
+              DateTime NgayKetThuc,
+              double MucGiamGiaPhanTram,
+              double MucGiamGiaTienMat,
+              int TrangThai
+            )
         {
             var giamgia = new GiamGia
             {
                 Id = Guid.NewGuid(),
-                Ma = item.Ma,
-                Ten = item.Ten,
-                NgayBatDau = item.NgayBatDau,
-                NgayKetThuc = item.NgayKetThuc,
-                MucGiamGiaPhanTram = item.MucGiamGiaPhanTram,
-                MucGiamGiaTienMat = item.MucGiamGiaTienMat,
-                TrangThai = item.TrangThai
+                Ma = Ma,
+                Ten = Ten,
+                NgayBatDau = NgayBatDau,
+                NgayKetThuc = NgayKetThuc,
+                MucGiamGiaPhanTram = MucGiamGiaPhanTram,
+                MucGiamGiaTienMat = MucGiamGiaTienMat,
+                TrangThai = TrangThai
             };
             return _repo.CreateItem(giamgia);
         }
 
 
-        [HttpPut("update")]
-        public bool Update(GiamGia item)
+        [HttpPut("edit")]
+        public bool UpdateGiamGia(
+              Guid id,
+              string Ma,
+              string Ten,
+              DateTime NgayBatDau,
+              DateTime NgayKetThuc,
+              double MucGiamGiaPhanTram,
+              double MucGiamGiaTienMat,
+              int TrangThai)
         {
-            var giamgia = _repo.GetAllItem().FirstOrDefault(c => c.Id == item.Id);
+            var giamgia = _repo.GetAllItem().FirstOrDefault(c => c.Id == id);
             if (giamgia == null)
                 return false;
 
-            giamgia.Ma = item.Ma;
-            giamgia.Ten = item.Ten;
-            giamgia.NgayBatDau = item.NgayBatDau;
-            giamgia.NgayKetThuc = item.NgayKetThuc;
-            giamgia.MucGiamGiaPhanTram = item.MucGiamGiaPhanTram;
-            giamgia.MucGiamGiaTienMat = item.MucGiamGiaTienMat;
-            giamgia.TrangThai = item.TrangThai;
+            giamgia.Ma = Ma;
+            giamgia.Ten = Ten;
+            giamgia.NgayBatDau = NgayBatDau;
+            giamgia.NgayKetThuc = NgayKetThuc;
+            giamgia.MucGiamGiaPhanTram = MucGiamGiaPhanTram;
+            giamgia.MucGiamGiaTienMat = MucGiamGiaTienMat;
+            giamgia.TrangThai = TrangThai;
             return _repo.UpdateItem(giamgia);
         }
 
         [HttpDelete("delete")]
-        public bool Delete(Guid id)
+        public bool DeleteGiamGia(Guid id)
         {
             var giamgia = _repo.GetAllItem().FirstOrDefault(c => c.Id == id);
+            if (giamgia == null)
+                return false;
             return _repo.DeleteItem(giamgia);
         }
     }
