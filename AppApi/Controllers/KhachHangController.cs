@@ -29,7 +29,7 @@ namespace AppApi.Controllers
         [HttpGet("{id}")]
         public KhachHang GetById(Guid id)
         {
-            var kh = _repo.GetKHByID(id);
+            var kh = _repo.GetById(id);
             return kh;
         }
 

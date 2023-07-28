@@ -28,7 +28,7 @@ namespace AppApi.Controllers
         [HttpGet("{id}")]
         public HoaDon GetById(Guid id) 
         {
-            var hoadon = _repo.GetHDByID(id);
+            var hoadon = _repo.GetById(id);
             return hoadon;
         }
 
