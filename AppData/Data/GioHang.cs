@@ -10,10 +10,10 @@ namespace AppData.Data
 	public class GioHang
 	{
 		public Guid Id { get; set; }
-		public Guid IdKH { get; set; }
+		public Guid IdUser { get; set; }
 		public string Mota { get; set;}
 		public int TrangThai { get; set;}
-		public KhachHang khachHang { get; set;}
+		public User user { get; set;}
 		public ICollection<GioHangChiTiet> gioHangChiTiets { get; set; }
 	}
 }

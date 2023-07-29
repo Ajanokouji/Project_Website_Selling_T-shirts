@@ -31,7 +31,7 @@ namespace AppView.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(GioHang gh)
         {
-            string apiURL = $"https://localhost:7015/api/GioHang/Create?idkh={gh.IdKH}&mota={gh.Mota}&trangthai={gh.TrangThai}";
+            string apiURL = $"https://localhost:7015/api/GioHang/Create?idkh={gh.IdUser}&mota={gh.Mota}&trangthai={gh.TrangThai}";
             var content = new StringContent(JsonConvert.SerializeObject(gh), Encoding.UTF8, "application/json");
             var response = await httpClient.PostAsync(apiURL, content);
 
@@ -60,7 +60,7 @@ namespace AppView.Controllers
         {
 
             var httpClient = new HttpClient();
-            string apiURL = $"https://localhost:7015/api/GioHang/Edit?id={id}&idkh={gh.IdKH}&mota={gh.Mota}&trangthai={gh.TrangThai}";
+            string apiURL = $"https://localhost:7015/api/GioHang/Edit?id={id}&idkh={gh.IdUser}&mota={gh.Mota}&trangthai={gh.TrangThai}";
             var content = new StringContent(JsonConvert.SerializeObject(gh), Encoding.UTF8, "application/json");
             var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)

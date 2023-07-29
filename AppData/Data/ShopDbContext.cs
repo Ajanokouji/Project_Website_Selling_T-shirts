@@ -15,17 +15,16 @@ namespace AppData.Data
 		public DbSet<Anh> anhs { get; set; }
 		public DbSet<ChatLieu> chatLieus { get; set; }
 		public DbSet<ChiTietSanPham> chiTietSanPhams { get; set; }
-		public DbSet<ChucVu> chucVus { get; set; }
+		public DbSet<Role> roles { get; set; }
 		public DbSet<GiamGia> giamGias { get; set; }
 		public DbSet<GioHang> gioHangs { get; set; }
 		public DbSet<GioHangChiTiet> gioHangChiTiets { get; set; }
 		public DbSet<HoaDon> hoaDons { get; set; }
 		public DbSet<HoaDonChiTiet> hoaDonChiTiets { get; set; }
-		public DbSet<KhachHang> khachHangs { get; set; }
+		public DbSet<User> users { get; set; }
 		public DbSet<KichCo> kichCos { get; set; }
 		public DbSet<Loai> loais { get; set; }
 		public DbSet<MauSac> mauSacs { get; set; }
-		public DbSet<NhanVien> nhanViens { get; set; }
 		public DbSet<SanPham> sanPhams { get; set; }
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 		{
@@ -52,7 +51,7 @@ namespace AppData.Data
 				e.HasOne(e => e.loai).WithMany(e => e.chiTietSanPhams).HasForeignKey(e => e.IdLoai);
 				e.HasOne(e => e.chatLieu).WithMany(e => e.chiTietSanPhams).HasForeignKey(e => e.IdCL);
 			}); 
-			modelBuilder.Entity<ChucVu>(e =>
+			modelBuilder.Entity<Role>(e =>
 			{
 				e.HasKey(e => e.Id);
 			});
@@ -63,7 +62,7 @@ namespace AppData.Data
 			modelBuilder.Entity<GioHang>(e =>
 			{
 				e.HasKey(e => e.Id);
-				e.HasOne(e => e.khachHang).WithMany(e => e.gioHangs).HasForeignKey(e => e.IdKH);
+				e.HasOne(e => e.user).WithMany(e => e.gioHangs).HasForeignKey(e => e.IdUser);
 			});			
 			modelBuilder.Entity<GioHangChiTiet>(e =>
 			{
@@ -73,8 +72,7 @@ namespace AppData.Data
 			modelBuilder.Entity<HoaDon>(e =>
 			{
 				e.HasKey(e => e.Id);
-				e.HasOne(e => e.khachHang).WithMany(e => e.hoaDons).HasForeignKey(e => e.IdKH);
-				e.HasOne(e => e.nhanVien).WithMany(e => e.hoaDons).HasForeignKey(e => e.IdNV);
+				e.HasOne(e => e.user).WithMany(e => e.hoaDons).HasForeignKey(e => e.IdUser);
 			});			
 			modelBuilder.Entity<HoaDonChiTiet>(e =>
 			{
@@ -83,9 +81,10 @@ namespace AppData.Data
 				e.HasOne(e => e.chiTietSanPham).WithMany(e => e.hoaDonChiTiets).HasForeignKey(e => e.IdCTSP);
 				e.HasOne(e => e.giamGia).WithMany(e => e.hoaDonChiTiets).HasForeignKey(e => e.IdGiamGia);
 			});			
-			modelBuilder.Entity<KhachHang>(e =>
+			modelBuilder.Entity<User>(e =>
 			{
 				e.HasKey(e => e.Id);
+				e.HasOne(e => e.role).WithMany(e => e.users).HasForeignKey(e => e.IdRole);
 			});			
 			modelBuilder.Entity<KichCo>(e =>
 			{
@@ -98,12 +97,7 @@ namespace AppData.Data
 			modelBuilder.Entity<MauSac>(e =>
 			{
 				e.HasKey(e => e.Id);
-			});			
-			modelBuilder.Entity<NhanVien>(e =>
-			{
-				e.HasKey(e => e.Id);
-				e.HasOne(e => e.chucVu).WithMany(e => e.nhanViens).HasForeignKey(e => e.IdCV);
-			});			
+			});					
 			modelBuilder.Entity<SanPham>(e =>
 			{
 				e.HasKey(e => e.Id);

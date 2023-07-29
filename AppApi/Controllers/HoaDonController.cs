@@ -35,11 +35,9 @@ namespace AppApi.Controllers
 
         [HttpPost("create")]
         public bool CreateHoaDon(
-            Guid IdKH,
-            Guid IdNV,
+            Guid IdUser,
             string Ma,
-            string TenNV,
-            string TenKH,
+            string TenUser,
             DateTime NgayTao,
             DateTime NgayNhan,
             DateTime NgayShip,
@@ -55,11 +53,9 @@ namespace AppApi.Controllers
             var hoadon = new HoaDon
             {
                 Id = Guid.NewGuid(),
-                IdKH = IdKH,
-                IdNV = IdNV,
+                IdUser = IdUser,
                 Ma = Ma,
-                TenNV = TenNV,
-                TenKH = TenKH,
+                TenUser = TenUser,
                 NgayTao = NgayTao,
                 NgayNhan = NgayNhan,
                 NgayShip = NgayShip,
@@ -78,11 +74,9 @@ namespace AppApi.Controllers
         [HttpPut("edit")]
         public bool UpdateHoaDon(
             Guid id,
-            Guid IdKH,
-            Guid IdNV,
+            Guid IdUser,
             string Ma,
-            string TenNV,
-            string TenKH,
+            string TenUser,
             DateTime NgayTao,
             DateTime NgayNhan,
             DateTime NgayShip,
@@ -95,15 +89,13 @@ namespace AppApi.Controllers
             decimal TienShip
             )
         {
-            var hoadon = _repo.GetHDByID(id);
+            var hoadon = _repo.GetById(id);
             if(hoadon == null )
                 return false;
 
-            hoadon.IdKH = IdKH;
-            hoadon.IdNV = IdNV;
+            hoadon.IdUser = IdUser;
             hoadon.Ma = Ma;
-            hoadon.TenNV = TenNV;
-            hoadon.TenKH = TenKH;
+            hoadon.TenUser = TenUser;
             hoadon.NgayTao = NgayTao;
             hoadon.NgayNhan = NgayNhan;
             hoadon.NgayShip = NgayShip;
@@ -120,7 +112,7 @@ namespace AppApi.Controllers
         [HttpDelete("delete")]
         public bool DeleteKichCo(Guid id)
         {
-            var hoadon = _repo.GetHDByID(id);
+            var hoadon = _repo.GetById(id);
             return _repo.DeleteItem(hoadon);
         }
     }

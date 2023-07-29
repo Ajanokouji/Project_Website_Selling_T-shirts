@@ -6,12 +6,12 @@ using System.Text;
 
 namespace AppView.Controllers
 {
-    public class KhachHangController : Controller
+    public class UserController : Controller
     {
         Uri baseAddress = new Uri("https://localhost:7015/api");
         private readonly HttpClient _http;
 
-        public KhachHangController()
+        public UserController()
         {
             _http = new HttpClient();
             _http.BaseAddress = baseAddress;
@@ -20,9 +20,9 @@ namespace AppView.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var respone = await _http.GetAsync(baseAddress + "/khachhang/get-all");
+            var respone = await _http.GetAsync(baseAddress + "/User/get-all");
             string apiData = await respone.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<List<KhachHang>>(apiData);
+            var result = JsonConvert.DeserializeObject<List<User>>(apiData);
             return View(result);
         }
 
@@ -32,41 +32,41 @@ namespace AppView.Controllers
             return View();
         }
         [HttpPost]
-        public async Task<IActionResult> Create(KhachHang kh)
+        public async Task<IActionResult> Create(User user)
         {
-            string apiURL = baseAddress + $"/khachhang/create?Ma={kh.Ma}&Ten={kh.Ten}&TenTaiKhoan={kh.TenTaiKhoan}&MatKhau={kh.MatKhau}&SDT={kh.SDT}&NgaySinh={kh.NgaySinh}&DiaChi={kh.DiaChi}&GioiTinh={kh.GioiTinh}&GhiChu={kh.GhiChu}&TrangThai={kh.TrangThai}";
-            var content = new StringContent(JsonConvert.SerializeObject(kh), Encoding.UTF8, "application/json");
+            string apiURL = baseAddress + $"/User/create?Id={user.IdRole}&Ma={user.Ma}&Ten={user.Ten}&Anh={user.Anh}&TenTaiKhoan={user.TenTaiKhoan}&MatKhau={user.MatKhau}&SDT={user.SDT}&NgaySinh={user.NgaySinh}&DiaChi={user.DiaChi}&GioiTinh={user.GioiTinh}&GhiChu={user.GhiChu}&TrangThai={user.TrangThai}";
+            var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
             var response = await _http.PostAsync(_http.BaseAddress + apiURL, content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            return View(kh);
+            return View(user);
         }
         [HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var response = await _http.GetAsync(baseAddress + $"/khachhang/{id}");
+            var response = await _http.GetAsync(baseAddress + $"/User/{id}");
 
             string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<HoaDon>(apiData);
             return View(result);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, KhachHang kh)
+        public async Task<IActionResult> Edit(Guid id, User user)
         {
-            string apiURL = baseAddress + $"/khachhang/edit?id={id}&Ma={kh.Ma}&Ten={kh.Ten}&TenTaiKhoan={kh.TenTaiKhoan}&MatKhau={kh.MatKhau}&SDT={kh.SDT}&NgaySinh={kh.NgaySinh}&DiaChi={kh.DiaChi}&GioiTinh={kh.GioiTinh}&GhiChu={kh.GhiChu}&TrangThai={kh.TrangThai}";
-            var content = new StringContent(JsonConvert.SerializeObject(kh), Encoding.UTF8, "application/json");
+            string apiURL = baseAddress + $"/User/edit?id={id}&Id={user.IdRole}&Ma={user.Ma}&Ten={user.Ten}&Anh={user.Anh}&TenTaiKhoan={user.TenTaiKhoan}&MatKhau={user.MatKhau}&SDT={user.SDT}&NgaySinh={user.NgaySinh}&DiaChi={user.DiaChi}&GioiTinh={user.GioiTinh}&GhiChu={user.GhiChu}&TrangThai={user.TrangThai}";
+            var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
             var response = await _http.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");
             }
-            return View(kh);
+            return View(user);
         }
         public async Task<IActionResult> Delete(Guid id)
         {
-            var response = await _http.DeleteAsync(baseAddress + $"/khachhang/delete/?id={id}");
+            var response = await _http.DeleteAsync(baseAddress + $"/User/delete/?id={id}");
             if (response.IsSuccessStatusCode)
             {
                 return RedirectToAction("Index");

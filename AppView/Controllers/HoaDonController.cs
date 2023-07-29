@@ -34,7 +34,7 @@ namespace AppView.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(HoaDon hd)
         {
-            string apiData = baseAddress + $"/HoaDon/create?IdKH={hd.IdKH}&IdNV={hd.IdNV}&Ma={hd.Ma}&TenNV={hd.TenNV}&TenKH={hd.TenKH}&NgayTao={hd.NgayTao}&NgayNhan={hd.NgayNhan}&NgayShip={hd.NgayShip}&NgayThanhToan={hd.NgayThanhToan}&DiaChi={hd.DiaChi}&TongTien={hd.TongTien}&TrangThai={hd.TrangThai}&SDTNguoiNhan={hd.SDTNguoiNhan}&SDTNguoiShip={hd.SDTNguoiShip}&TienShip={hd.TienShip}";
+            string apiData = baseAddress + $"/HoaDon/create?IdUser={hd.IdUser}&Ma={hd.Ma}&TenUser={hd.TenUser}&NgayTao={hd.NgayTao}&NgayNhan={hd.NgayNhan}&NgayShip={hd.NgayShip}&NgayThanhToan={hd.NgayThanhToan}&DiaChi={hd.DiaChi}&TongTien={hd.TongTien}&TrangThai={hd.TrangThai}&SDTNguoiNhan={hd.SDTNguoiNhan}&SDTNguoiShip={hd.SDTNguoiShip}&TienShip={hd.TienShip}";
             var content = new StringContent(JsonConvert.SerializeObject(hd), Encoding.UTF8, "application/json");
             var response = await _http.PostAsync(apiData, content);
             if (response.IsSuccessStatusCode)
@@ -55,7 +55,7 @@ namespace AppView.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Guid id, HoaDon hd)
         {
-            string apiURL = baseAddress + $"/HoaDon/edit?id={id}&IdKH={hd.IdKH}&IdNV={hd.IdNV}&Ma={hd.Ma}&TenNV={hd.TenNV}&TenKH={hd.TenKH}&NgayTao={hd.NgayTao}&NgayNhan={hd.NgayNhan}&NgayShip={hd.NgayShip}&NgayThanhToan={hd.NgayThanhToan}&DiaChi={hd.DiaChi}&TongTien={hd.TongTien}&TrangThai={hd.TrangThai}&SDTNguoiNhan={hd.SDTNguoiNhan}&SDTNguoiShip={hd.SDTNguoiShip}&TienShip={hd.TienShip}";
+            string apiURL = baseAddress + $"/HoaDon/edit?id={id}&IdUser={hd.IdUser}&Ma={hd.Ma}&TenUser={hd.TenUser}&NgayTao={hd.NgayTao}&NgayNhan={hd.NgayNhan}&NgayShip={hd.NgayShip}&NgayThanhToan={hd.NgayThanhToan}&DiaChi={hd.DiaChi}&TongTien={hd.TongTien}&TrangThai={hd.TrangThai}&SDTNguoiNhan={hd.SDTNguoiNhan}&SDTNguoiShip={hd.SDTNguoiShip}&TienShip={hd.TienShip}";
             var content = new StringContent(JsonConvert.SerializeObject(hd), Encoding.UTF8, "application/json");
             var response = await _http.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppData.Data.HoaDon>
+﻿@model IEnumerable<AppData.Data.User>
 
 @{
     ViewData["Title"] = "Index";
@@ -16,43 +16,40 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.IdUser)
+                @Html.DisplayNameFor(model => model.IdRole)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Ma)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenUser)
+                @Html.DisplayNameFor(model => model.Ten)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayTao)
+                @Html.DisplayNameFor(model => model.Anh)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayNhan)
+                @Html.DisplayNameFor(model => model.TenTaiKhoan)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayShip)
+                @Html.DisplayNameFor(model => model.MatKhau)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.NgayThanhToan)
+                @Html.DisplayNameFor(model => model.SDT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.NgaySinh)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.DiaChi)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TongTien)
+                @Html.DisplayNameFor(model => model.GioiTinh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.GhiChu)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SDTNguoiNhan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.SDTNguoiShip)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TienShip)
             </th>
             <th></th>
         </tr>
@@ -64,43 +61,40 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.IdUser)
+                @Html.DisplayFor(modelItem => item.IdRole)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Ma)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TenUser)
+                @Html.DisplayFor(modelItem => item.Ten)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayTao)
+                @Html.DisplayFor(modelItem => item.Anh)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayNhan)
+                @Html.DisplayFor(modelItem => item.TenTaiKhoan)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayShip)
+                @Html.DisplayFor(modelItem => item.MatKhau)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.NgayThanhToan)
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.NgaySinh)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.DiaChi)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TongTien)
+                @Html.DisplayFor(modelItem => item.GioiTinh)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.GhiChu)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SDTNguoiNhan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.SDTNguoiShip)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TienShip)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
