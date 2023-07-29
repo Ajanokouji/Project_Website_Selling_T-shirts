@@ -1,4 +1,4 @@
-﻿@model IEnumerable<AppData.Data.ChucVu>
+﻿@model IEnumerable<AppData.Data.Role>
 
 @{
     ViewData["Title"] = "ShowAll";
@@ -16,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TenChucVu)
+                @Html.DisplayNameFor(model => model.TenRole)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.TrangThai)
@@ -31,15 +31,15 @@
                 @Html.DisplayFor(modelItem => item.Id)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.TenChucVu)
+                @Html.DisplayFor(modelItem => item.TenRole)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new {  id=item.Id })
+                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
+                @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
             </td>
         </tr>
 }

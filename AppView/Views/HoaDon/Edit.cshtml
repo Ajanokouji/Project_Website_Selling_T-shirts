@@ -6,21 +6,21 @@
 
 <h1>Edit</h1>
 
-<h4>KhachHang</h4>
+<h4>HoaDon</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
         <form asp-action="Edit">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="IdKH" class="control-label"></label>
-                <input asp-for="IdKH" class="form-control" />
-                <span asp-validation-for="IdKH" class="text-danger"></span>
+                <label asp-for="Id" class="control-label"></label>
+                <input asp-for="Id" class="form-control" />
+                <span asp-validation-for="Id" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdNV" class="control-label"></label>
-                <input asp-for="IdNV" class="form-control" />
-                <span asp-validation-for="IdNV" class="text-danger"></span>
+                <label asp-for="IdUser" class="control-label"></label>
+                <input asp-for="IdUser" class="form-control" />
+                <span asp-validation-for="IdUser" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="Ma" class="control-label"></label>
@@ -28,14 +28,9 @@
                 <span asp-validation-for="Ma" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TenKH" class="control-label"></label>
-                <input asp-for="TenKH" class="form-control" />
-                <span asp-validation-for="TenKH" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TenNV" class="control-label"></label>
-                <input asp-for="TenNV" class="form-control" />
-                <span asp-validation-for="TenNV" class="text-danger"></span>
+                <label asp-for="TenUser" class="control-label"></label>
+                <input asp-for="TenUser" class="form-control" />
+                <span asp-validation-for="TenUser" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="NgayTao" class="control-label"></label>
@@ -88,7 +83,7 @@
                 <span asp-validation-for="TienShip" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Edit" class="btn btn-primary" />
+                <input type="submit" value="Save" class="btn btn-primary" />
             </div>
         </form>
     </div>
@@ -99,7 +94,5 @@
 </div>
 
 @section Scripts {
-    @{
-        await Html.RenderPartialAsync("_ValidationScriptsPartial");
-    }
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

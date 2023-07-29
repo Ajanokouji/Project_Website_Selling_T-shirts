@@ -8,26 +8,26 @@ namespace AppApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class KhachHangController : ControllerBase
+    public class UserController : ControllerBase
     {
 
-        IAllrepositories<KhachHang> _repo;
+        IAllrepositories<User> _repo;
         private ShopDbContext _context = new ShopDbContext();
-        public KhachHangController()
+        public UserController()
         {
-            Allrepositories<KhachHang> repos = new Allrepositories<KhachHang>(_context, _context.khachHangs);
+            Allrepositories<User> repos = new Allrepositories<User>(_context, _context.users);
             _repo = repos;
         }
 
 
         [HttpGet("get-all")]
-        public IEnumerable<KhachHang> GetAll()
+        public IEnumerable<User> GetAll()
         {
             var khachhangs = _repo.GetAllItem();
             return khachhangs;
         }
         [HttpGet("{id}")]
-        public KhachHang GetById(Guid id)
+        public User GetById(Guid id)
         {
             var kh = _repo.GetById(id);
             return kh;
@@ -35,9 +35,11 @@ namespace AppApi.Controllers
 
 
         [HttpPost("create")]
-        public bool CreateKhachHang(
+        public bool CreateUser(
+            Guid IdRole,
             string Ma,
             string Ten,
+            string Anh,
             string TenTaiKhoan,
             string MatKhau,
             string SDT,
@@ -48,11 +50,13 @@ namespace AppApi.Controllers
             int TrangThai
             )
         {
-            var kh = new KhachHang
+            var kh = new User
             {
                 Id = Guid.NewGuid(),
+                IdRole = IdRole,
                 Ma = Ma,
                 Ten = Ten,
+                Anh = Anh,
                 TenTaiKhoan = TenTaiKhoan,
                 MatKhau = MatKhau,
                 SDT = SDT,
@@ -67,10 +71,12 @@ namespace AppApi.Controllers
 
 
         [HttpPut("edit")]
-        public bool UpdateKhachHang(
+        public bool UpdateUser(
             Guid id,
+            Guid IdRole,
             string Ma,
             string Ten,
+            string Anh,
             string TenTaiKhoan,
             string MatKhau,
             string SDT,
@@ -81,12 +87,13 @@ namespace AppApi.Controllers
             int TrangThai
             )
         {
-            var kh = _repo.GetKHByID(id);
+            var kh = _repo.GetById(id);
             if (kh == null)
                 return false;
-
+            kh.IdRole = IdRole;
             kh.Ma = Ma;
             kh.Ten = Ten;
+            kh.Anh = Anh;
             kh.TenTaiKhoan = TenTaiKhoan;
             kh.MatKhau = MatKhau;
             kh.SDT = SDT;
@@ -101,7 +108,7 @@ namespace AppApi.Controllers
         [HttpDelete("delete")]
         public bool Delete(Guid id)
         {
-            var kh = _repo.GetKHByID(id);
+            var kh = _repo.GetById(id);
             if (kh == null)
                 return false;
             return _repo.DeleteItem(kh);

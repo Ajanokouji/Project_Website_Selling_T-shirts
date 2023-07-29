@@ -1,5 +1,4 @@
-﻿using AppApi.Controllers;
-using AppData.Data;
+﻿using AppData.Data;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Net.Http;

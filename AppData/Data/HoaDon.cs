@@ -9,11 +9,9 @@ namespace AppData.Data
 	public class HoaDon
 	{
 		public Guid Id { get; set; }
-		public Guid IdKH { get; set; }
-		public Guid IdNV { get; set; }
+		public Guid IdUser { get; set; }
 		public string Ma { get; set; }
-		public string TenNV { get; set; }
-		public string TenKH { get; set; }
+		public string TenUser { get; set; }
 		public DateTime NgayTao { get; set; }
 		public DateTime NgayNhan { get; set; }
 		public DateTime NgayShip { get; set; }
@@ -24,8 +22,7 @@ namespace AppData.Data
 		public string SDTNguoiNhan { get;set; }
 		public string SDTNguoiShip { get;set; }
 		public Decimal TienShip { get; set; }
-		public NhanVien nhanVien { get; set; }
-		public KhachHang khachHang { get; set; }
+		public User user { get; set; }
 		public ICollection<HoaDonChiTiet> hoaDonChiTiets { get; set; }
 	}
 }

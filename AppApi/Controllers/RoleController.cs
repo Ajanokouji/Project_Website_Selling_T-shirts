@@ -8,23 +8,23 @@ namespace AppApi.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ChucVuController : ControllerBase
+    public class RoleController : ControllerBase
     {
-        private IAllrepositories<ChucVu> _Iallrepos;
+        private IAllrepositories<Role> _Iallrepos;
         private ShopDbContext _shopdb = new ShopDbContext();
 
-        public ChucVuController()
+        public RoleController()
         {
-            var _Repos = new Allrepositories<ChucVu>(_shopdb, _shopdb.chucVus);
+            var _Repos = new Allrepositories<Role>(_shopdb, _shopdb.roles);
             _Iallrepos = _Repos;
         }
         [HttpGet]
-        public IEnumerable<ChucVu> Get()
+        public IEnumerable<Role> Get()
         {
             return _Iallrepos.GetAllItem();
         }
         [HttpPost("Create")]
-        public bool Create( string TenChucVu, int TrangThai)
+        public bool Create( string TenRole, int TrangThai)
         {
             //ChucVu result = new ChucVu();
             //result.Id = Guid.NewGuid();
@@ -32,21 +32,21 @@ namespace AppApi.Controllers
             //result.TrangThai = TrangThai;
             //return _Iallrepos.CreateItem(result);
 
-            if (string.IsNullOrEmpty(TenChucVu)) return false;
-            var result = new ChucVu();
+            if (string.IsNullOrEmpty(TenRole)) return false;
+            var result = new Role();
             result.Id = Guid.NewGuid();
-            result.TenChucVu = TenChucVu;
+            result.TenRole = TenRole;
             result.TrangThai = TrangThai;
             // check ten trung nhau
             return _Iallrepos.CreateItem(result); // tạo mới
         }
 
         [HttpPut("Edit")]
-        public bool Update(Guid id, string TenChucVu, int TrangThai)
+        public bool Update(Guid id, string TenRole, int TrangThai)
         {
-            ChucVu result = _Iallrepos.GetAllItem().First(p => p.Id == id);
+            Role result = _Iallrepos.GetAllItem().First(p => p.Id == id);
             result.Id = id;
-            result.TenChucVu = TenChucVu;
+            result.TenRole = TenRole;
             result.TrangThai = TrangThai;
             return _Iallrepos.UpdateItem(result);
         }
@@ -54,11 +54,11 @@ namespace AppApi.Controllers
         [HttpDelete("Delete")]
         public bool Delete(Guid id)
         {
-            ChucVu result = _Iallrepos.GetAllItem().First(p => p.Id == id);
+            Role result = _Iallrepos.GetAllItem().First(p => p.Id == id);
             return _Iallrepos.DeleteItem(result);
         }
-        [HttpGet("GetbyId-ChucVu")]
-        public ChucVu GetbyIdCV(Guid Id)
+        [HttpGet("GetbyId-Role")]
+        public Role GetbyIdRole(Guid Id)
         {
             return _Iallrepos.GetById(Id);
         }
