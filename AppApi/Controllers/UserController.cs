@@ -26,7 +26,7 @@ namespace AppApi.Controllers
             var khachhangs = _repo.GetAllItem();
             return khachhangs;
         }
-        [HttpGet("{id}")]
+        [HttpGet("id")]
         public User GetById(Guid id)
         {
             var kh = _repo.GetById(id);

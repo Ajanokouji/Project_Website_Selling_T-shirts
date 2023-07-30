@@ -7,73 +7,83 @@ namespace AppView.Controllers
 {
     public class GiamGiaController : Controller
     {
-        Uri baseAddress = new Uri("https://localhost:7015/api");
-        private readonly HttpClient _http;
-
+        private HttpClient httpClient;
         public GiamGiaController()
         {
-            _http = new HttpClient();
-            _http.BaseAddress = baseAddress;
+            httpClient = new HttpClient();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ShowAll()
         {
-            var respone = await _http.GetAsync(baseAddress + "/giamgia/get-all");
-            string apiData = await respone.Content.ReadAsStringAsync();
+
+            string apiURL = "https://localhost:7015/api/GiamGia/get-all";
+
+
+            var response = await httpClient.GetAsync(apiURL);
+            string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<GiamGia>>(apiData);
             return View(result);
         }
-
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return View();
         }
+
+
         [HttpPost]
-        public async Task<IActionResult> Create(GiamGia gg)
+        public async Task<IActionResult> Create(GiamGia giamGia)
         {
-            string apiData = baseAddress + $"/GiamGia/create?Ma={gg.Ma}&Ten={gg.Ten}&NgayBatDau={gg.NgayBatDau}&NgayKetThuc={gg.NgayKetThuc}&MucGiamGiaPhanTram={gg.MucGiamGiaPhanTram}&MucGiamGiaTienMat={gg.MucGiamGiaTienMat}&TrangThai={gg.TrangThai}";
-            var content = new StringContent(JsonConvert.SerializeObject(gg), Encoding.UTF8, "application/json");
-            var response = await _http.PostAsync(apiData, content);
+            string apiURL = $"https://localhost:7015/api/GiamGia/create?Ma={giamGia.Ma}&Ten={giamGia.Ten}&NgayBatDau={giamGia.NgayBatDau}&NgayKetThuc={giamGia.NgayKetThuc}&MucGiamGiaPhanTram={giamGia.MucGiamGiaPhanTram}&MucGiamGiaTienMat={giamGia.MucGiamGiaTienMat}&TrangThai={giamGia.TrangThai}";
+            var content = new StringContent(JsonConvert.SerializeObject(giamGia), Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PostAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAll");
             }
-            return View(gg);
+
+            return View(giamGia);
+
         }
-        [HttpGet]
+        //[HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var response = await _http.GetAsync(baseAddress + $"/giamgia/{id}");
+
+            string apiURL = $"https://localhost:7015/api/GiamGia/GetbyId-GiamGia?Id={id}";
+
+            var response = await httpClient.GetAsync(apiURL);
 
             string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<HoaDon>(apiData);
+            var result = JsonConvert.DeserializeObject<GiamGia>(apiData);
             return View(result);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, GiamGia gg)
+        public async Task<IActionResult> Edit(Guid Id, GiamGia giamGia)
         {
-            string apiURL = baseAddress + $"/GiamGia/edit?id={id}&Ma={gg.Ma}&Ten={gg.Ten}&NgayBatDau={gg.NgayBatDau}&NgayKetThuc={gg.NgayKetThuc}&MucGiamGiaPhanTram={gg.MucGiamGiaPhanTram}&MucGiamGiaTienMat={gg.MucGiamGiaTienMat}&TrangThai={gg.TrangThai}";
-            var content = new StringContent(JsonConvert.SerializeObject(gg), Encoding.UTF8, "application/json");
-            var response = await _http.PutAsync(apiURL, content);
+
+            string apiURL = $"https://localhost:7015/api/GiamGia/edit?id={Id}&Ma={giamGia.Ma}&Ten={giamGia.Ten}&NgayBatDau={giamGia.NgayBatDau}&NgayKetThuc={giamGia.NgayKetThuc}&MucGiamGiaPhanTram={giamGia.MucGiamGiaPhanTram}&MucGiamGiaTienMat={giamGia.MucGiamGiaTienMat}&TrangThai={giamGia.TrangThai}";
+            var content = new StringContent(JsonConvert.SerializeObject(giamGia), Encoding.UTF8, "application/json");
+
+            var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAll");
             }
 
-            return View(gg);
-        }
 
+            return View();
+        }
         [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var response = await _http.DeleteAsync(_http.BaseAddress + $"/HoaDon/Delete/?id={id}");
+            string apiURL = $"https://localhost:7015/api/GiamGia/delete?id={id}";
+
+            var response = await httpClient.DeleteAsync(apiURL);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAll");
             }
-            return BadRequest();
+
+            return RedirectToAction("ShowAll");
         }
     }
 }

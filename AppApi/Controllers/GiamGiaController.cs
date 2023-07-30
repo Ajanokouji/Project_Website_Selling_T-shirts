@@ -27,6 +27,12 @@ namespace AppApi.Controllers
             return respone;
         }
 
+        [HttpGet("GetbyId-GiamGia")]
+        public GiamGia GetbyId(Guid Id)
+        {
+            return _repo.GetById(Id);
+        }
+
         [HttpPost("create")]
         public bool CreateGiamGia(
               string Ma,
@@ -38,18 +44,18 @@ namespace AppApi.Controllers
               int TrangThai
             )
         {
-            var giamgia = new GiamGia
-            {
-                Id = Guid.NewGuid(),
-                Ma = Ma,
-                Ten = Ten,
-                NgayBatDau = NgayBatDau,
-                NgayKetThuc = NgayKetThuc,
-                MucGiamGiaPhanTram = MucGiamGiaPhanTram,
-                MucGiamGiaTienMat = MucGiamGiaTienMat,
-                TrangThai = TrangThai
-            };
-            return _repo.CreateItem(giamgia);
+            if (string.IsNullOrEmpty(Ten)) return false;
+            var result = new GiamGia();
+            result.Id = Guid.NewGuid();
+            result.Ma = Ma;
+            result.Ten = Ten;
+            result.NgayBatDau = NgayBatDau;
+            result.NgayKetThuc = NgayKetThuc;
+            result.MucGiamGiaPhanTram = MucGiamGiaPhanTram;
+            result.MucGiamGiaTienMat = MucGiamGiaTienMat;
+            result.TrangThai = TrangThai;
+            // check ten trung nhau
+            return _repo.CreateItem(result); // tạo mới
         }
 
 

@@ -1,10 +1,10 @@
 ﻿@model IEnumerable<AppData.Data.HoaDon>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "ShowAll";
 }
 
-<h1>Index</h1>
+<h1>ShowAll</h1>
 
 <p>
     <a asp-action="Create">Create New</a>
@@ -104,7 +104,7 @@
             </td>
             <td>
                 @Html.ActionLink("Edit", "Edit", new {  id=item.Id  }) |
-                @Html.ActionLink("Details", "Details", new {  id=item.Id  }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
                 @Html.ActionLink("Delete", "Delete", new {  id=item.Id  })
             </td>
         </tr>
