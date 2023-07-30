@@ -8,70 +8,83 @@ namespace AppView.Controllers
 {
     public class UserController : Controller
     {
-        Uri baseAddress = new Uri("https://localhost:7015/api");
-        private readonly HttpClient _http;
-
+        private HttpClient httpClient;
         public UserController()
         {
-            _http = new HttpClient();
-            _http.BaseAddress = baseAddress;
+            httpClient = new HttpClient();
         }
-
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ShowAll()
         {
-            var respone = await _http.GetAsync(baseAddress + "/User/get-all");
-            string apiData = await respone.Content.ReadAsStringAsync();
+
+            string apiURL = "https://localhost:7015/api/User/get-all";
+
+
+            var response = await httpClient.GetAsync(apiURL);
+            string apiData = await response.Content.ReadAsStringAsync();
             var result = JsonConvert.DeserializeObject<List<User>>(apiData);
             return View(result);
         }
-
-        [HttpGet]
         public async Task<IActionResult> Create()
         {
             return View();
         }
+
+
         [HttpPost]
         public async Task<IActionResult> Create(User user)
         {
-            string apiURL = baseAddress + $"/User/create?Id={user.IdRole}&Ma={user.Ma}&Ten={user.Ten}&Anh={user.Anh}&TenTaiKhoan={user.TenTaiKhoan}&MatKhau={user.MatKhau}&SDT={user.SDT}&NgaySinh={user.NgaySinh}&DiaChi={user.DiaChi}&GioiTinh={user.GioiTinh}&GhiChu={user.GhiChu}&TrangThai={user.TrangThai}";
+            string apiURL = $"https://localhost:7015/api/User/create?IdRole={user.IdRole}&Ma={user.Ma}&Ten={user.Ten}&Anh={user.Anh}&TenTaiKhoan={user.TenTaiKhoan}&MatKhau={user.MatKhau}&SDT={user.SDT}&NgaySinh={user.NgaySinh}&DiaChi={user.DiaChi}&GioiTinh={user.GioiTinh}&GhiChu={user.GhiChu}&TrangThai={user.TrangThai}";
             var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-            var response = await _http.PostAsync(_http.BaseAddress + apiURL, content);
+
+            var response = await httpClient.PostAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAll");
             }
+
             return View(user);
+
         }
-        [HttpGet]
+        //[HttpGet]
         public async Task<IActionResult> Edit(Guid id)
         {
-            var response = await _http.GetAsync(baseAddress + $"/User/{id}");
+
+            string apiURL = $"https://localhost:7015/api/User/id?id={id}";
+
+            var response = await httpClient.GetAsync(apiURL);
 
             string apiData = await response.Content.ReadAsStringAsync();
-            var result = JsonConvert.DeserializeObject<HoaDon>(apiData);
+            var result = JsonConvert.DeserializeObject<User>(apiData);
             return View(result);
         }
         [HttpPost]
-        public async Task<IActionResult> Edit(Guid id, User user)
+        public async Task<IActionResult> Edit(Guid Id, User user)
         {
-            string apiURL = baseAddress + $"/User/edit?id={id}&Id={user.IdRole}&Ma={user.Ma}&Ten={user.Ten}&Anh={user.Anh}&TenTaiKhoan={user.TenTaiKhoan}&MatKhau={user.MatKhau}&SDT={user.SDT}&NgaySinh={user.NgaySinh}&DiaChi={user.DiaChi}&GioiTinh={user.GioiTinh}&GhiChu={user.GhiChu}&TrangThai={user.TrangThai}";
+
+            string apiURL = $"https://localhost:7015/api/User/edit?id={user.Id}&IdRole={user.IdRole}&Ma={user.Ma}&Ten={user.Ten}&Anh={user.Anh}&TenTaiKhoan={user.TenTaiKhoan}&MatKhau={user.MatKhau}&SDT={user.SDT}&NgaySinh={user.NgaySinh}&DiaChi={user.DiaChi}&GioiTinh={user.GioiTinh}&GhiChu={user.GhiChu}&TrangThai={user.TrangThai}";
             var content = new StringContent(JsonConvert.SerializeObject(user), Encoding.UTF8, "application/json");
-            var response = await _http.PutAsync(apiURL, content);
+
+            var response = await httpClient.PutAsync(apiURL, content);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAll");
             }
-            return View(user);
+
+
+            return View();
         }
+        [HttpGet]
         public async Task<IActionResult> Delete(Guid id)
         {
-            var response = await _http.DeleteAsync(baseAddress + $"/User/delete/?id={id}");
+            string apiURL = $"https://localhost:7015/api/User/delete?id={id}";
+
+            var response = await httpClient.DeleteAsync(apiURL);
             if (response.IsSuccessStatusCode)
             {
-                return RedirectToAction("Index");
+                return RedirectToAction("ShowAll");
             }
-            return BadRequest();
+
+            return RedirectToAction("ShowAll");
         }
     }
 }
